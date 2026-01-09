@@ -13,18 +13,13 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
-# Load environment variables from .env in backend directory
-_env_path = Path(__file__).parent.parent / ".env"
+# Load environment variables from .env.local in parent directory
+_env_path = Path(__file__).parent.parent.parent / ".env.local"
 if _env_path.exists():
     load_dotenv(dotenv_path=str(_env_path))
 else:
-    # Fallback to parent directory .env.local (for backward compatibility)
-    _parent_env = Path(__file__).parent.parent.parent / ".env.local"
-    if _parent_env.exists():
-        load_dotenv(dotenv_path=str(_parent_env))
-    else:
-        # Final fallback to current directory
-        load_dotenv()
+    # Fallback to current directory
+    load_dotenv()
 
 
 @dataclass
